@@ -133,3 +133,12 @@ INSERT INTO T_Users (Login, Password) VALUES ('Martin', '20001');
 INSERT INTO T_Users (Login, Password) VALUES ('Julie', '20002');
 INSERT INTO T_Users (Login, Password) VALUES ('Alexander', '20003');
 INSERT INTO T_Users (Login, Password) VALUES ('Marie', '20004');
+
+-- 11
+CREATE USER 'Guillaume'@'localHost' IDENTIFIED BY 'Wing*993';
+GRANT ALL PRIVILEGES ON shop.* TO 'Guillaume'@'localHost';
+FLUSH PRIVILEGES;
+mysql -u Guillaume -p
+show databases;
+show GRANTS FOR 'Guillaume'@'localhost';
+Drop user 'Guillaume'@'localhost';  --pour supprimer 

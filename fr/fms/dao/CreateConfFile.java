@@ -6,34 +6,35 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class CreateConfFile {
-	private final String driver;
-	private final String url;
-	private final String login;
-	private final String password;
+	ConfigReader conf = new ConfigReader();
+	Properties prop = conf.ConfigReader("config.properties");
+	
+	private final String driver = prop.getProperty("driver");
+	private final String url = prop.getProperty("url");
+	private final String login = prop.getProperty("login");
+	private final String password = prop.getProperty("password");
 	private Connection conn;
-
-
-	public CreateConfFile(String driver, String url,String login,String password) {
-		this.driver = driver;
-		this.url = url;
-		this.login = login;
-		this.password = password;
-	}
+	
+	private static final CreateConfFile INSTANCE = new CreateConfFile();
 
 	//Connection à la base de donnée
-	public Connection getConnection() throws SQLException {
-		if(conn == null) {
+	private CreateConfFile() {
+		if (conn == null) {
 			try {
 				Class.forName(driver);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}		
-			conn = DriverManager.getConnection(url,login,password);	
-		}
-		return conn;
+				conn = DriverManager.getConnection(url,login,password);
 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
+	}
+
+	public static CreateConfFile getInstance() {
+		return INSTANCE;
 	}
 
 	//Execute les requêtes SELECT  retourne un objet ResultSet

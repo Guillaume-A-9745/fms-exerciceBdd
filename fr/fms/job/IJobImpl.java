@@ -1,32 +1,35 @@
 package fr.fms.job;
 
-import fr.fms.dao.ArticleDao;
-import fr.fms.dao.UserDao;
-import fr.fms.entities.Article;
-import fr.fms.entities.User;
+import java.sql.ResultSet;
 
-public class IJobImpl {
+public class IJobImpl implements IJob{
 
-	public static void main(String[] args) {
-		ArticleDao<Article> job = new ArticleDao<Article>();
-		
-		//job.create(new Article("Batterie TopTop", "Syno", 80));
-		//job.read(11);
-		//job.update(new Article(17, "Batterie TopTop", "Syno", 150));
-		//job.delete(new Article(19, "Batterie TopTop", "Syno", 180));
+	@Override
+	public boolean VerifieUser(String user) {
+		try {
+			String StrSql = "SELECT Login FROM T_Users where Login ='" + user + "'";
+			ResultSet resultSet = connexion.executeQuery(StrSql);
+			if(resultSet.next())
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
-		//job.readAll();
-		
-		
-		
-		UserDao<User> user = new UserDao<User>();
-		
-		//user.create(new User("Jean","20005"));
-		//user.read(2);
-		user.update(new User(5,"Jeanne","20005"));
-		//user.delete(new User(3,"",""));
-		
-		user.readAll();
-		
+	@Override
+	public boolean VerifiePsw(String user, String psw) {
+		if(VerifieUser(user)) {
+			try {
+				String StrSql = "SELECT Login FROM T_Users where password ='" + psw + "'";
+				ResultSet resultSet = connexion.executeQuery(StrSql);
+				if(resultSet.next())
+					if(resultSet.getString(1).equals(user))
+						return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 }
