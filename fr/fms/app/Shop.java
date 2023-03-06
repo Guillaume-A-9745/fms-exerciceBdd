@@ -47,12 +47,13 @@ public class Shop {
 				System.out.println("Indiquez votre not de passe :");
 				String userPsw = scan.next();
 				userConnect = act.verifieUserConnect(userLogin, userPsw);
-				System.out.println(userConnect);
+				//System.out.println(userConnect);
+				String userChoice;
 				//Affichage du menu
 				System.out.println("\nBonjour " + userLogin);
 				System.out.println("Que desire vous faire ?");
 				while (userConnect) {
-					System.out.print(ANSI_BLUE);
+					System.out.println(ANSI_BLUE);
 					System.out.println("Menu : ");
 					System.out.println("1 --> Afficher la liste des articles." + "\t\t2 --> Ajouter un article à mon panier");
 					System.out.println("3 --> Afficher le contenu de mon panier." + "\t4 --> Supprimer un article à mon panier");
@@ -66,19 +67,52 @@ public class Shop {
 						act.readAllArticles();
 						break;
 					case 2:
-						System.out.println( java.sql.Date.valueOf(LocalDate.now()));
+						Object newArticle = "oui";
+						while(newArticle .equals("oui")) {
+							System.out.println(ANSI_BLUE);
+							System.out.println("Indiquez l'id de l'article à ajouter au panier :"+ANSI_RESET);
+							while(!scan.hasNextInt()) scan.next();
+							int idArticleChoice = scan.nextInt();
+							scan.nextLine();
+							System.out.println(ANSI_BLUE);
+							System.out.println("Indiquer la quantité voulu :"+ANSI_RESET);
+							while(!scan.hasNextInt()) scan.next();
+							int nbArticleChoice = scan.nextInt();
+							scan.nextLine();
+							act.addArticles(userLogin, userPsw, idArticleChoice, nbArticleChoice);
+							System.out.println(ANSI_BLUE);
+							System.out.println("Voulez-vous ajoute un nouvel article au panier ?   oui/non"+ANSI_RESET);
+							newArticle = scan.next();
+						}
+
 						break;
 					case 3:
 						System.out.println(act.readCart(userLogin, userPsw));
+						act.readCart_Article(userLogin, userPsw);
 						break;
 					case 4:
-
+						System.out.println(ANSI_BLUE);
+						System.out.println("Indiquez l'id de l'article à supprimer du panier : "+ANSI_RESET);
+						while(!scan.hasNextInt()) scan.next();
+						int idArticleChoice = scan.nextInt();
+						scan.nextLine();
+						act.deletearticle(idArticleChoice);
 						break;
 					case 5:
-
+						System.out.println(ANSI_BLUE);
+						System.out.println("Voulez-vous valider votre commade ?  oui/non "+ANSI_RESET);
+						userChoice = scan.next();
+						if(userChoice.equals("oui")) {
+							act.valideCart(userLogin, userPsw);
+						}
 						break;
 					case 6:
-
+						System.out.println(ANSI_BLUE);
+						System.out.println("Voulez-vous vraiment supprimer la totaliter de votre panier ?  oui/non "+ANSI_RESET);
+						userChoice = scan.next();
+						if(userChoice.equals("oui")) {
+							act.deleteAllArticle(userLogin, userPsw);
+						}
 						break;
 					case 7:
 

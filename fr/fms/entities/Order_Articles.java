@@ -1,6 +1,6 @@
 package fr.fms.entities;
 
-public class ShoppingCart_Articles {
+public class Order_Articles {
 	
 	int idCart;
 	int idArticle;
@@ -10,13 +10,13 @@ public class ShoppingCart_Articles {
 	String brand;
 	double price;
 	
-	public ShoppingCart_Articles(int idCart,int idArticle, int quantity) {
+	public Order_Articles(int idCart,int idArticle, int quantity) {
 		this.idCart = idCart;
 		this.idArticle = idArticle;
 		this.quantity = quantity;
 	}
 	
-	public ShoppingCart_Articles(int idArticle, String description,String brand,double price, int quantity) {
+	public Order_Articles(int idArticle, String description,String brand,double price, int quantity) {
 		this.idArticle = idArticle;
 		this.description = description;
 		this.brand = brand;

@@ -5,16 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import fr.fms.entities.Order;
 import fr.fms.entities.ShoppingCart;
-import fr.fms.entities.User;
 
-public class ShoppingCartDao<T> implements Dao<T> {
+public class OrderDao<T> implements Dao<T> {
 
 	@Override
 	public void create(T obj) {
 		try {
-			String StrSql = "INSERT INTO T_ShoppingCart (IdUser, Date) VALUES (?,?);";
-			try(PreparedStatement ps = connexion.executeUpdate(StrSql)){
+			String strSql = "INSERT INTO T_Order (IdUser, Date) VALUES (?,?);";
+			try(PreparedStatement ps = connexion.executeUpdate(strSql)){
 				ps.setInt(1, ((ShoppingCart) obj).getIdUser());
 				ps.setString(2, ShoppingCart.getDate().toString());
 				if(ps.executeUpdate() == 1)		
@@ -26,17 +26,17 @@ public class ShoppingCartDao<T> implements Dao<T> {
 
 	@Override
 	public T read(int id) {
-		ShoppingCart cart = null;
+		Order order = null;
 		try {
-			String StrSql = "SELECT * FROM T_ShoppingCart where idUser = " + id;
-			ResultSet resultSet = connexion.executeQuery(StrSql);
+			String strSql = "SELECT * FROM T_Order where idUser = " + id;
+			ResultSet resultSet = connexion.executeQuery(strSql);
 			while(resultSet.next()) {
-				cart = new ShoppingCart(resultSet.getInt(1),resultSet.getInt(2));
+				order = new Order(resultSet.getInt(1),resultSet.getInt(2));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		return (T) cart;
+		return (T) order;
 	}
 
 	@Override
@@ -55,20 +55,6 @@ public class ShoppingCartDao<T> implements Dao<T> {
 	public ArrayList<T> readAll() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	public T readCart(int id) {
-		ShoppingCart cart = null;
-		try {
-			String StrSql = "SELECT Login FROM T_ShoppingCart inner join T_Users where T_ShoppingCart.idUser = T_Users.IdUser and T_ShoppingCart.idUser =" + id;
-			ResultSet resultSet = connexion.executeQuery(StrSql);
-			while(resultSet.next()) {
-				cart = new ShoppingCart(resultSet.getString(1));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-		return (T) cart;
 	}
 
 }

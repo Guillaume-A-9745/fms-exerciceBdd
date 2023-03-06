@@ -157,6 +157,7 @@ CREATE TABLE T_ShoppingCart (
 
 
 CREATE TABLE T_ShoppingCart_Articles (
+	IdShCaArt  	int(4)   	PRIMARY KEY AUTO_INCREMENT, 
 	IdCart	 	int(4) 		NOT NULL,
 	IdArticle 	int(4) 		NOT NULL,
 	Quantity 	int(4)		NOT NULL,
@@ -177,6 +178,7 @@ CREATE TABLE T_Order (
 )ENGINE = InnoDB;
 
 CREATE TABLE T_Order_Articles (
+	IdOrArt   	int(4)     	PRIMARY KEY AUTO_INCREMENT, 
 	IdOrder  	int(4) 		NOT NULL,
 	IdArticle 	int(4) 		NOT NULL,
 	Quantity 	int(4)		NOT NULL,
