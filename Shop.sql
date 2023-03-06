@@ -142,3 +142,44 @@ mysql -u Guillaume -p
 show databases;
 show GRANTS FOR 'Guillaume'@'localhost';
 Drop user 'Guillaume'@'localhost';  --pour supprimer 
+
+
+-- 12
+--
+-- - Construction de la table panier -
+--
+CREATE TABLE T_ShoppingCart (
+	IdCart	 	int(4) 		PRIMARY KEY AUTO_INCREMENT,
+	IdUser 		int(4) 		NOT NULL,
+	Date  		DATE,
+	FOREIGN KEY (IdUser) REFERENCES T_Users(IdUser)
+)ENGINE = InnoDB;
+
+
+CREATE TABLE T_ShoppingCart_Articles (
+	IdCart	 	int(4) 		NOT NULL,
+	IdArticle 	int(4) 		NOT NULL,
+	Quantity 	int(4)		NOT NULL,
+	FOREIGN KEY (IdCart) REFERENCES T_ShoppingCart(IdCart),
+	FOREIGN KEY (IdArticle) REFERENCES T_Articles(IdArticle)
+)ENGINE = InnoDB;
+
+ 
+
+--
+-- - Construction de la table commande -
+--
+CREATE TABLE T_Order (
+	IdOrder 	int(4) 		PRIMARY KEY AUTO_INCREMENT,
+	IdUser 		int(4) 		NOT NULL,
+	Date 		DATE,
+	FOREIGN KEY (IdUser) REFERENCES T_Users(IdUser)
+)ENGINE = InnoDB;
+
+CREATE TABLE T_Order_Articles (
+	IdOrder  	int(4) 		NOT NULL,
+	IdArticle 	int(4) 		NOT NULL,
+	Quantity 	int(4)		NOT NULL,
+	FOREIGN KEY (IdOrder) REFERENCES T_Order(IdOrder),
+	FOREIGN KEY (IdArticle) REFERENCES T_Articles(IdArticle)
+)ENGINE = InnoDB;

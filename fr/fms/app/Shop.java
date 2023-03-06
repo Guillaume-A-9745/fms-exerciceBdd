@@ -1,5 +1,6 @@
 package fr.fms.app;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,8 +12,12 @@ import fr.fms.job.IJobImpl;
 
 public class Shop {
 	static IJobImpl act = new IJobImpl();
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_YELLOW = "\u001B[33m";
+	public static final String ANSI_BLUE = "\u001B[34m	";
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		ArticleDao<Article> articles = new ArticleDao<Article>();	
 		//articles.create(new Article("Batterie TopTop", "Syno", 80));
 		//System.out.println(articles.read(11));
@@ -33,28 +38,72 @@ public class Shop {
 		// Exercice 10
 
 		Scanner scan = new Scanner(System.in);
-		String userLogin;
 		boolean userConnect = false;
-		while(true) {
+		while(!userConnect) {
 			try {
+				//Connection
 				System.out.println("Indiquez votre login :");
-				userLogin = scan.next();
-				//if(act.VerifieUser(userLogin)) System.out.println("User ok");
+				String userLogin = scan.next();
 				System.out.println("Indiquez votre not de passe :");
 				String userPsw = scan.next();
-				userConnect = act.VerifiePsw(userLogin, userPsw);
+				userConnect = act.verifieUserConnect(userLogin, userPsw);
 				System.out.println(userConnect);
-				if(!userConnect) {
-					throw new RuntimeException("Login ou mot de passe invalide !");
-				} else {
-					//System.out.println("Password ok");		
-					ArrayList<Article> article = articles.readAll();
-					for(Article a : article)
-						System.out.println(a);		//Affichage de la liste des articles
+				//Affichage du menu
+				System.out.println("\nBonjour " + userLogin);
+				System.out.println("Que desire vous faire ?");
+				while (userConnect) {
+					System.out.print(ANSI_BLUE);
+					System.out.println("Menu : ");
+					System.out.println("1 --> Afficher la liste des articles." + "\t\t2 --> Ajouter un article à mon panier");
+					System.out.println("3 --> Afficher le contenu de mon panier." + "\t4 --> Supprimer un article à mon panier");
+					System.out.println("5 --> Valider mon panier." + "\t\t\t6 --> Supprimer tous mon panier");
+					System.out.println("7 --> Consulter mes commandes antérieurs." +ANSI_RED+ "\t\t8 --> Quitter l'application"+ANSI_RESET);
+					while(!scan.hasNextInt()) scan.next();
+					int choice = scan.nextInt();
+					scan.nextLine();
+					switch (choice) {
+					case 1:
+						act.readAllArticles();
+						break;
+					case 2:
+						System.out.println( java.sql.Date.valueOf(LocalDate.now()));
+						break;
+					case 3:
+						System.out.println(act.readCart(userLogin, userPsw));
+						break;
+					case 4:
+
+						break;
+					case 5:
+
+						break;
+					case 6:
+
+						break;
+					case 7:
+
+						break;
+					case 8:
+						System.out.println(ANSI_RED);
+						System.out.println("Fin de la transaction.");
+						System.out.print(ANSI_RESET);
+						userConnect = false;
+						break;
+
+					default:
+						System.out.println(ANSI_RED);
+						System.out.println("Choix invalide.");
+						System.out.print(ANSI_RESET);
+						break;
+					}
 				}
+
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
 		}
+
+
+		scan.close();
 	}
 }

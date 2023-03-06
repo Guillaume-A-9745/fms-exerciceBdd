@@ -1,19 +1,17 @@
 package fr.fms.job;
 
-import fr.fms.dao.CreateConfFile;
+import fr.fms.entities.ShoppingCart;
 
 public interface IJob {
-
-	public CreateConfFile connexion = CreateConfFile.getInstance();
-	public boolean VerifieUser(String user); 			//Verifier si l'user est en base de donner
-	public boolean VerifiePsw(String user, String psw);	//verifie si l'user à un mdp lier au compte en base de donner
-	
-	//verifier si un panier exicete + creer un panier 
+	public boolean verifieUserConnect(String login , String psw);	//Verifier le login et psw
+	public void readAllArticles(); 									//Afficher la liste d'article
+	public void createCart(String login, String psw);//verifier si un panier existe + creer un panier 
 	//Ajouter un article au panier
 	//supprimer un article du panier
-	//Afficher le contenu du panier
+	public ShoppingCart readCart(String login, String psw);											//Afficher le contenu du panier
 	//Supprimer tout le panier
 	//Valider la commande
+	
 	
 	//consulter les commandes antérieurs
 }

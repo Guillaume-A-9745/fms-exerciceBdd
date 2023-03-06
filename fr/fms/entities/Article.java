@@ -33,7 +33,7 @@ public class Article {
 	public double getPrice() {
 		return price;
 	}
-	@Override
+
 	public String toString() {
 		return "Article [id = " + id + ", Name = " + description + ", Brand = " + brand + ", Price = " + price + "€]";
 	}

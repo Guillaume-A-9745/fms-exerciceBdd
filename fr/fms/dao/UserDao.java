@@ -90,4 +90,46 @@ public class UserDao<T> implements Dao<T>{
 		return (ArrayList<T>) users;
 	}
 
+	public boolean verifieLogin(String user) {
+		try {
+			String StrSql = "SELECT Login FROM T_Users where Login ='" + user + "'";
+			ResultSet resultSet = connexion.executeQuery(StrSql);
+			if(resultSet.next())
+				return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public boolean verifiePsw(String user, String psw) {
+		if(verifieLogin(user)) {
+			try {
+				String StrSql = "SELECT Login FROM T_Users where password ='" + psw + "'";
+				ResultSet resultSet = connexion.executeQuery(StrSql);
+				if(resultSet.next())
+					if(resultSet.getString(1).equals(user))
+						return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	public int retrieveId(String user, String psw) {
+		if(verifiePsw(user, psw)) {
+			try {
+				String StrSql = "SELECT Iduser FROM T_Users where password ='" + psw + "' and Login ='" + user + "'";
+				ResultSet resultSet = connexion.executeQuery(StrSql);
+				if(resultSet.next()) {
+					int rsIdUser = resultSet.getInt(1);
+					return rsIdUser;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return (Integer) null;
+		
+	}
+	
 }

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import fr.fms.entities.Article;
 
 public class ArticleDao<T> implements Dao<T> {
-	//CreateConfFile connexion = CreateConfFile.getInstance();
 	
 	@Override
 	public void create(T obj) {
