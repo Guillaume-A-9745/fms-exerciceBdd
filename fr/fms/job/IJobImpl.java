@@ -72,7 +72,7 @@ public class IJobImpl implements IJob{
 		return userArticles;
 	}
 	@Override
-	public void addArticles(String login, String psw, int idArticle, int quantity) {
+	public void addArticle(String login, String psw, int idArticle, int quantity) {
 		int connetedId = user.retrieveId(login,psw);
 		if(cart.read(connetedId) == null) {
 			createCart(login,psw);

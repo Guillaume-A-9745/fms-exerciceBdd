@@ -15,8 +15,8 @@ public class OrderDao<T> implements Dao<T> {
 		try {
 			String strSql = "INSERT INTO T_Order (IdUser, Date) VALUES (?,?);";
 			try(PreparedStatement ps = connexion.executeUpdate(strSql)){
-				ps.setInt(1, ((ShoppingCart) obj).getIdUser());
-				ps.setString(2, ShoppingCart.getDate().toString());
+				ps.setInt(1, ((Order) obj).getIdUser());
+				ps.setString(2, Order.getDate().toString());
 				if(ps.executeUpdate() == 1)		
 					System.out.println("Insertion ok");}
 		} catch (SQLException e) {

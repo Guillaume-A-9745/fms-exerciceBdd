@@ -103,10 +103,13 @@ select * from T_Articles where UnitaryPrice > 100;
 
 -- 1.8
 select * from T_Articles where UnitaryPrice > 50 and UnitaryPrice < 100;
+-- or
+select * from T_Articles where UnitaryPrice between 50 and  100;
 
 -- 1.9
 select * from T_Articles order by UnitaryPrice ;
-
+-- decroissant
+select * from T_Articles order by UnitaryPrice desc;
 -- 1.10
 select T_Articles.Description from T_Articles;
 
@@ -115,7 +118,7 @@ select IdArticle,T_Articles.Description,UnitaryPrice,Name from T_Articles inner 
 -- 1.12 fait plus haut
 
 -- 1.13 
-select * from T_Articles order by UnitaryPrice ; --?? meme que 1.9
+select IdArticle,T_Articles.Description,UnitaryPrice,Name from T_Articles inner join T_Category on T_Articles.IdCategory = T_Category.IDCategory order by UnitaryPrice ;
 
 
 -- 2
@@ -141,7 +144,7 @@ FLUSH PRIVILEGES;
 mysql -u Guillaume -p
 show databases;
 show GRANTS FOR 'Guillaume'@'localhost';
-Drop user 'Guillaume'@'localhost';  --pour supprimer 
+-- Drop user 'Guillaume'@'localhost';  --pour supprimer 
 
 
 -- 12

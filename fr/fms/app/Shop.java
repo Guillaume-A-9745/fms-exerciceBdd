@@ -79,7 +79,7 @@ public class Shop {
 							while(!scan.hasNextInt()) scan.next();
 							int nbArticleChoice = scan.nextInt();
 							scan.nextLine();
-							act.addArticles(userLogin, userPsw, idArticleChoice, nbArticleChoice);
+							act.addArticle(userLogin, userPsw, idArticleChoice, nbArticleChoice);
 							System.out.println(ANSI_BLUE);
 							System.out.println("Voulez-vous ajoute un nouvel article au panier ?   oui/non"+ANSI_RESET);
 							newArticle = scan.next();

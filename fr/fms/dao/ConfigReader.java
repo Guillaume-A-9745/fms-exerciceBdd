@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class ConfigReader {
 	
-	public Properties ConfigReader(String filename) {
+	public static Properties ConfigReader(String filename) {
 		FileInputStream fis = null;
 		Properties prop = null;
 		try {
